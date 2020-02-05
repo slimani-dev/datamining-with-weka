@@ -1,13 +1,11 @@
-# docsify-themeable
+#TP DATAMINING
 
-> A delightfully simple theme system for [docsify.js](https://docsify.js.org)
+> Master 1 - RSSI 
 
-- Based on CSS custom properties
-- No packages to install or files to build
-- Improved desktop and mobile experience
-- Multiple themes available
-- Legacy browser support (IE10+)
+>[La Faculté des Sciences Exactes de l’Université Djillali Liabès de Sidi Bel Abbès](https://fse.univ-sba.dz)
 
-[Get Started](#main)
-[GitHub](https://github.com/jhildenbiddle/docsify-themeable)
-[NPM](https://www.npmjs.com/package/docsify-themeable)
+-TP Par **Slimani Mohamed**
+
+[Introduction](#main)
+[GitHub](https://github.com/Mohamed-SM/datamining-with-weka)
+

@@ -1,22 +1,17 @@
-# TP 01 DATAMINING 
-## Master 1 - RSSI
-**Mohamed Slimani**
-
-05/02/2020
-
-## A Quique view on Weka
+# Introduction sur Weka 
 
 ![](images/weka_gui.png)
 
-Weka is a Data mining workbench, or Waikato Environment for Knowledge Analysis. 
+Weka est un atelier d'exploration de données ou un environnement Waikato pour l'analyse des connaissances.
 
-It contains Machine learning algorithms for data mining tasks
-                                             
-     • 100+ algorithms for classification
-     • 75 for data preprocessing
-     • 25 to assist with feature selection
-     • 20 for clustering, finding association rules, etc
+Il contient des algorithmes d'apprentissage automatique pour les tâches d'exploration de données
 
-### Official Website     
-To download Weka and to get documentation check [this link](https://www.cs.waikato.ac.nz/ml/weka/)
+      • 100+ algorithmes de classification
+      • 75 pour le prétraitement des données
+      • 25 pour aider à la sélection des fonctionnalités
+      • 20 pour le clustering, la recherche de règles d'association, etc.
+
+## Site officiel
+
+Pour télécharger Weka et obtenir de la documentation, consultez [ce lien](https://www.cs.waikato.ac.nz/ml/weka/)
 
