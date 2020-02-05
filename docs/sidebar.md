@@ -1,5 +1,8 @@
 - [Introduction](/)
 - [Explorateur de Weka](explorer.md)
+- [Ligne de commande](cli.md)
+- [API Java](java.md)
+- [TP 01](TP01.md)
 - [Markdown](markdown.md)
 - **Links**
 - [Github](https://github.com/jhildenbiddle/docsify-themeable)

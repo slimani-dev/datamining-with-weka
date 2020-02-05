@@ -1,6 +1,12 @@
 # Explorateur
 
+
+
+<div style='width:80%; margin: auto'>
+
 ![](images/weka_gui_2.png)
+
+</div>
 
 En cliquant sur le premier bouton à droite du sélecteur GUI, vous ouvrirez l'explorateur
 
@@ -16,7 +22,12 @@ modifier l'ensemble de données, le prévisualiser et effectuer un prétraitemen
 Dans cet onglet, nous traitons l'ensemble de données à l'aide de différents algorithmes, 
 et nous pouvons modifier les paramètres des algorithmes et voir le résultat
 
+
+<div style='width:80%; margin: auto'>
+
 ![](images/explorer_01.png)
+
+</div>
 
 ### Les autres onglets:
 Les autres onglets concernent le clustering, l'association, la sélection d'attributs et la visualisation
@@ -32,7 +43,12 @@ Dans ce fichier, on a 5 attributs comme indiqué en bas à gauche.
 Sur la droite, on peut voir les détails de l'attribut sélectionné (étiquette, nombre, poids), 
 on peut choisir la classe et on a un graphe pour les détails de l'attribut
 
+
+<div style='width:80%; margin: auto'>
+
 ![](images/explorer_3.png)
+
+</div>
 
 En haut, on peut voir le dataset ou le modifier et l'enregistrer, 
 et on peut aussi choisir un filtre (ou des filtres)
@@ -41,10 +57,19 @@ et on peut aussi choisir un filtre (ou des filtres)
 
 Dans le deuxième onglet, on peut choisir un algorithme à utiliser sur l'ensemble de données qui a été choisi, on clique sur le bouton choisir puis on sélectionne un algorithme (je vais juste sélectionner OneR)
 
+<div style='width:80%; margin: auto'>
+
 ![](images/explorer_4.png)
+
+</div>
 
 Puis on clique sur le bouton de démarrage pour démarrer l'algorithme
 
+
+<div style='width:80%; margin: auto'>
+
 ![](images/explorer_5.png)
+
+</div>
 
 Le résultat apparaîtra à droite
