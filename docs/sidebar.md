@@ -1,5 +1,6 @@
-- [Demo](/)
-- [Markdown](markdown)
+- [Introduction](/)
+- [Explorateur de Weka](explorer.md)
+- [Markdown](markdown.md)
 - **Links**
 - [Github](https://github.com/jhildenbiddle/docsify-themeable)
 - [NPM](https://www.npmjs.com/package/docsify-themeable)
