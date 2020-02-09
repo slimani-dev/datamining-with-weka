@@ -8,7 +8,7 @@ import weka.classifiers.rules.OneR;
 import weka.classifiers.trees.Id3;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
-import weka.core.converters.ConverterUtils;
+import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
 import weka.filters.unsupervised.instance.RemovePercentage;
 
@@ -26,7 +26,7 @@ public class Main {
 
             FileWriter fileWriter = new FileWriter(tp);
 
-            ConverterUtils.DataSource source;
+            DataSource source;
 
             ArrayList<String> datasetPaths = new ArrayList<>();
             datasetPaths.add("datasets/weather.nominal.arff");
@@ -38,7 +38,7 @@ public class Main {
 
 
             for (String datasetPath : datasetPaths) {
-                source = new ConverterUtils.DataSource(datasetPath);
+                source = new DataSource(datasetPath);
                 Instances dataset = source.getDataSet();
                 dataset.setClassIndex(dataset.numAttributes() - 1);
                 datasets.add(dataset);
@@ -72,7 +72,7 @@ public class Main {
                         "**Le nombre d'instances** : " + dataset.numInstances() +
                         "\n\n");
 
-                fileWriter.write("#### Résumé de l'ensemble de données\n\n" +
+                fileWriter.write("#### Résumé de dataset\n\n" +
                         "```Summary \n" +
                         dataset.toSummaryString() +
                         "```\n\n");
