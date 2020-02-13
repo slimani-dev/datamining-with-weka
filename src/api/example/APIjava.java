@@ -7,7 +7,7 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 import java.util.Random;
 
-public class DataSet {
+public class APIjava {
 
     public static void main(String[] args) throws Exception {
 

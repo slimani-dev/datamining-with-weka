@@ -88,15 +88,11 @@ System.out.println("\n" +
 Résumé de dataset
 
 ```java
-...
-
 //display a Summary about the dataset
 System.out.println("#### Résumé de dataset\n\n" +
         "```Summary \n" +
         dataset.toSummaryString() +
         "```\n\n");
-
-...
 ```
 
 *resultat*
@@ -178,4 +174,4 @@ FMeasure: 0.5333333333333333 | 0.4615384615384615 | 0.5076923076923077
 ```
 
 
-> l'exemple de classe dans [ici](https://github.com/Mohamed-SM/datamining-with-weka/blob/master/src/api/example/DataSet.java)
+> l'exemple de classe dans [ici](https://github.com/Mohamed-SM/datamining-with-weka/blob/master/src/api/example/APIjava.java)
