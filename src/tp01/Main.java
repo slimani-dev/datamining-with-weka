@@ -30,10 +30,12 @@ public class Main {
             DataSource source;
 
             ArrayList<String> datasetPaths = new ArrayList<>();
-            datasetPaths.add("datasets/weather.nominal.arff");
+            datasetPaths.add("datasets/glass.arff");
             datasetPaths.add("datasets/breast-cancer.arff");
             datasetPaths.add("datasets/contact-lenses.arff");
             datasetPaths.add("datasets/cpu.arff");
+            datasetPaths.add("datasets/iris.arff");
+            datasetPaths.add("datasets/vote.arff");
 
 
             OneR oneR = new OneR();
@@ -98,7 +100,7 @@ public class Main {
 
                         Evaluation eval;
 
-                        System.out.print("\t" + classifier.getClass().getSimpleName());
+                        System.out.println("\t" + classifier.getClass().getSimpleName());
                         fileWriter.write("\n\n");
                         fileWriter.write("#### Algo: " + classifier.getClass().getSimpleName());
                         fileWriter.write("\n\n");
@@ -171,8 +173,6 @@ public class Main {
 
                         Instances bootstrapTest = new Instances(dataset,0);
 
-                        System.out.println("not in");
-
                         for (int i = 0; i < ints.length; i++) {
                             boolean has = false;
 
@@ -224,6 +224,8 @@ public class Main {
                             bestFMeasure = CrossValidationWeightedFMeasure;
                             bestFMeasureMethod = "Cross validation (10)";
                         }
+
+
                         if (bestPrecision < CrossValidationAllWeightedPrecision) {
                             bestPrecision = CrossValidationAllWeightedPrecision;
                             bestPrecisionMethod = "Leave one out (" + dataset.numInstances() + ")";
@@ -235,6 +237,19 @@ public class Main {
                         if (bestFMeasure < CrossValidationAllWeightedFMeasure) {
                             bestFMeasure = CrossValidationAllWeightedFMeasure;
                             bestFMeasureMethod = "Leave one out (" + dataset.numInstances() + ")";
+                        }
+
+                        if (bestPrecision < PercentageSplit66WeightedPrecision) {
+                            bestPrecision = PercentageSplit66WeightedPrecision;
+                            bestPrecisionMethod = "Hold out (" + percent + "%)";
+                        }
+                        if (bestRecall < PercentageSplit66WeightedRecall) {
+                            bestRecall = PercentageSplit66WeightedRecall;
+                            bestRecallMethod = "Hold out (" + percent + "%)";
+                        }
+                        if (bestFMeasure < PercentageSplit66WeightedFMeasure) {
+                            bestFMeasure = PercentageSplit66WeightedFMeasure;
+                            bestFMeasureMethod = "Hold out (" + percent + "%)";
                         }
 
                         /*
@@ -252,18 +267,7 @@ public class Main {
                         }
                         */
 
-                        if (bestPrecision < PercentageSplit66WeightedPrecision) {
-                            bestPrecision = PercentageSplit66WeightedPrecision;
-                            bestPrecisionMethod = "Hold out (" + percent + "%)";
-                        }
-                        if (bestRecall < PercentageSplit66WeightedRecall) {
-                            bestRecall = PercentageSplit66WeightedRecall;
-                            bestRecallMethod = "Hold out (" + percent + "%)";
-                        }
-                        if (bestFMeasure < eval.weightedFMeasure()) {
-                            bestFMeasure = PercentageSplit66WeightedFMeasure;
-                            bestFMeasureMethod = "Hold out (" + percent + "%)";
-                        }
+                        /*
                         if (bestPrecision < bootstrapWeightedPrecision) {
                             bestPrecision = bootstrapWeightedPrecision;
                             bestPrecisionMethod = "Bootstrap";
@@ -272,10 +276,11 @@ public class Main {
                             bestRecall = bootstrapWeightedRecall;
                             bestRecallMethod = "Bootstrap";
                         }
-                        if (bestFMeasure < eval.weightedFMeasure()) {
+                        if (bestFMeasure < bootstrapWeightedFMeasure) {
                             bestFMeasure = bootstrapWeightedFMeasure;
                             bestFMeasureMethod = "Bootstrap";
                         }
+                        */
 
                         fileWriter.write("**Results** :");
 
@@ -304,10 +309,13 @@ public class Main {
                                 String.format("%.3f", PercentageSplit66WeightedRecall) + " | " +
                                 String.format("%.3f", PercentageSplit66WeightedFMeasure) + " | \n");
 
+
+                        /*
                         fileWriter.write("| Bootstrap : | " +
                                 String.format("%.3f", bootstrapWeightedPrecision) + " | " +
                                 String.format("%.3f", bootstrapWeightedRecall) + " | " +
                                 String.format("%.3f", bootstrapWeightedFMeasure) + " | \n\n\n");
+                         */
 
 
                         fileWriter.write("**Comparaison** :\n\n" +
