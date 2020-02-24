@@ -1,9 +1,9 @@
 - [Introduction](/)
 - [Explorateur de Weka](explorer.md)
+- [Experimenter](experimenter.md)
 - [Ligne de commande](cli.md)
 - [API Java](java.md)
 - [TP 01](TP01.md)
 - [Markdown](markdown.md)
-- **Links**
-- [Github](https://github.com/jhildenbiddle/docsify-themeable)
-- [NPM](https://www.npmjs.com/package/docsify-themeable)
+- **Liens**
+- [Github](https://github.com/Mohamed-SM/datamining-with-weka)

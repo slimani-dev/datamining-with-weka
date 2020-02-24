@@ -8,6 +8,6 @@
 
 -Par **Slimani Mohamed**
 
-[Introduction](#main)
-[GitHub](https://github.com/Mohamed-SM/datamining-with-weka)
+
+https://github.com/Mohamed-SM/datamining-with-weka
 
