@@ -1,8 +1,9 @@
 - [Introduction](/)
-- [Explorateur de Weka](explorer.md)
+- [Explorer](explorer.md)
 - [Experimenter](experimenter.md)
-- [Ligne de commande](cli.md)
-- [API Java](java.md)
+- [Knowledge Flow](knowledge_flow.md)
+- [Simple CLI](cli.md)
+- [Java API](java.md)
 - [TP 01](TP01.md)
 - [Markdown](markdown.md)
 - **Liens**

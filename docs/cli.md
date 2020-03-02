@@ -1,4 +1,4 @@
-# Weka en Java
+# Simple Cli
 
 L'utilisation de la ligne de commande dans wike est simple
 ouvrez simplement l'interface de ligne de commande et tapez `java` <la classe d'algorithme> et le `-t` suivi du chemin complet vers le fichier du dataset.

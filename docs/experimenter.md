@@ -2,11 +2,11 @@
 
 L'utilisation de l'interface Experimenter permet de savoire : 
 
-    - détermination des performances moyenne et écart type d'un algorithme de classification sur un jeu de données ... ou de plusieurs algorithmes sur plusieurs jeux de données
-    - Un classificateur est-il meilleur qu'un autre sur un ensemble de données particulier? ... et la différence est-elle statistiquement significative?
-    - Un réglage de paramètre pour un algorithme est-il meilleur qu'un autre?
-    - Le résultat de ces tests peut être exprimé sous forme de fichier ARFF
-    - Le calcul peut prendre des jours ou des semaines ... et peut être distribué sur plusieurs ordinateurs
+- détermination des performances moyenne et écart type d'un algorithme de classification sur un jeu de données ... ou de plusieurs algorithmes sur plusieurs jeux de données
+- Un classificateur est-il meilleur qu'un autre sur un ensemble de données particulier? ... et la différence est-elle statistiquement significative?
+- Un réglage de paramètre pour un algorithme est-il meilleur qu'un autre?
+- Le résultat de ces tests peut être exprimé sous forme de fichier ARFF
+- Le calcul peut prendre des jours ou des semaines ... et peut être distribué sur plusieurs ordinateurs
 
 <div style='width:80%; margin: auto'>
 
