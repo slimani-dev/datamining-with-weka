@@ -5,6 +5,7 @@
 - [Simple CLI](cli.md)
 - [Java API](java.md)
 - [TP 01](TP01.md)
+- [TP 03](TP03.md)
 - [Markdown](markdown.md)
 - **Liens**
 - [Github](https://github.com/Mohamed-SM/datamining-with-weka)
