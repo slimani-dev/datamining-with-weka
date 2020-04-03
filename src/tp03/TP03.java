@@ -152,8 +152,7 @@ public class TP03 {
 
 
 
-            fileWriter.write("## prepossessing\n");
-            fileWriter.write("## replacing missing values");
+            fileWriter.write("##  traitement des données manquantes\n\n");
 
 
             ReplaceMissingValues replaceMissingValues = new ReplaceMissingValues();
@@ -166,6 +165,70 @@ public class TP03 {
 
             doTheTP(fileWriter, classifiers, datasetWithValuesReplaced);
 
+
+            fileWriter.write("## Discrétisations supervise & traitement des données manquantes\n\n");
+
+            DiscretizedDataset = Filter.useFilter(dataset, supDiscretize);
+            datasetWithValuesReplaced = Filter.useFilter(DiscretizedDataset, replaceMissingValues);
+
+
+            dataSetInformation(fileWriter, datasetWithValuesReplaced);
+
+            doTheTP(fileWriter, classifiers, datasetWithValuesReplaced);
+
+            fileWriter.write("## Discrétisations supervise & Sélection d'attributs\n\n");
+
+            DiscretizedDataset = Filter.useFilter(dataset, supDiscretize);
+
+            for (Classifier classifier : classifiers) {
+                WrapperSubsetEval wrapper = new WrapperSubsetEval();
+
+                wrapper.setClassifier(classifier);
+                dataset.setClassIndex(dataset.numAttributes() - 1);
+                wrapper.buildEvaluator(DiscretizedDataset);
+
+                BestFirst bestFirst = new BestFirst();
+
+                AttributeSelection attributeSelection = new AttributeSelection();
+
+                attributeSelection.setEvaluator(wrapper);
+                attributeSelection.setSearch(bestFirst);
+                attributeSelection.setInputFormat(DiscretizedDataset);
+
+                Instances attributeSelectedDataset = Filter.useFilter(DiscretizedDataset, attributeSelection);
+
+                dataSetInformation(fileWriter, attributeSelectedDataset);
+
+                doTheTP(fileWriter, classifier, attributeSelectedDataset);
+            }
+
+            fileWriter.write("## Discrétisations supervise traitement des données manquantes & Sélection d'attributs\n\n");
+
+            DiscretizedDataset = Filter.useFilter(dataset, supDiscretize);
+
+            datasetWithValuesReplaced = Filter.useFilter(DiscretizedDataset, replaceMissingValues);
+
+            for (Classifier classifier : classifiers) {
+                WrapperSubsetEval wrapper = new WrapperSubsetEval();
+
+                wrapper.setClassifier(classifier);
+                dataset.setClassIndex(dataset.numAttributes() - 1);
+                wrapper.buildEvaluator(datasetWithValuesReplaced);
+
+                BestFirst bestFirst = new BestFirst();
+
+                AttributeSelection attributeSelection = new AttributeSelection();
+
+                attributeSelection.setEvaluator(wrapper);
+                attributeSelection.setSearch(bestFirst);
+                attributeSelection.setInputFormat(datasetWithValuesReplaced);
+
+                Instances attributeSelectedDataset = Filter.useFilter(datasetWithValuesReplaced, attributeSelection);
+
+                dataSetInformation(fileWriter, attributeSelectedDataset);
+
+                doTheTP(fileWriter, classifier, attributeSelectedDataset);
+            }
 
             fileWriter.close();
 

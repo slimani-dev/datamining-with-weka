@@ -33,16 +33,22 @@ public class TPSolver {
         double bestPrecisionForAll = 0;
         double bestRecallForAll = 0;
         double bestFMeasureForAll = 0;
+        double bestKappaForAll = 0;
+        double bestPctCorrectForAll = 0;
 
 
         String bestPrecisionMethodForAll = "";
         String bestRecallMethodForAll = "";
         String bestFMeasureMethodForAll = "";
+        String bestKappaMethodForAll = "";
+        String bestPctCorrectMethodForAll = "";
 
 
         String bestPrecisionAlgorithmForAll = "";
         String bestRecallAlgorithmForAll = "";
         String bestFMeasureAlgorithmForAll = "";
+        String bestKappaAlgorithmForAll = "";
+        String bestPctCorrectAlgorithmForAll = "";
 
 
         for (Classifier classifier : classifiers) {
@@ -50,10 +56,14 @@ public class TPSolver {
                 double bestPrecision = 0;
                 double bestRecall = 0;
                 double bestFMeasure = 0;
+                double bestKappa = 0;
+                double bestPctCorrect = 0;
 
                 String bestPrecisionMethod = "";
                 String bestRecallMethod = "";
                 String bestFMeasureMethod = "";
+                String bestKappaMethod = "";
+                String bestPctCorrectMethod = "";
 
                 Evaluation eval;
 
@@ -70,6 +80,8 @@ public class TPSolver {
                 double CrossValidationWeightedPrecision = eval.weightedPrecision();
                 double CrossValidationWeightedRecall = eval.weightedRecall();
                 double CrossValidationWeightedFMeasure = eval.weightedFMeasure();
+                double CrossValidationWeightedKappa = eval.kappa();
+                double CrossValidationWeightedPctCorrect = eval.pctCorrect();
 
 
                 // leave one out
@@ -79,10 +91,11 @@ public class TPSolver {
                 double CrossValidationAllWeightedPrecision = eval.weightedPrecision();
                 double CrossValidationAllWeightedRecall = eval.weightedRecall();
                 double CrossValidationAllWeightedFMeasure = eval.weightedFMeasure();
-
+                double CrossValidationAllWeightedKappa = eval.kappa();
+                double CrossValidationAllWeightedPctCorrect = eval.pctCorrect();
 
                 // hold out
-                int percent = 70;
+                int percent = 66;
 
                 dataset.randomize(new Random(1));
 
@@ -104,6 +117,8 @@ public class TPSolver {
                 double PercentageSplit66WeightedPrecision = eval.weightedPrecision();
                 double PercentageSplit66WeightedRecall = eval.weightedRecall();
                 double PercentageSplit66WeightedFMeasure = eval.weightedFMeasure();
+                double PercentageSplit66WeightedKappa = eval.kappa();
+                double PercentageSplit66WeightedPctCorrect = eval.pctCorrect();
 
                 // base d'apprentissage
 
@@ -114,6 +129,8 @@ public class TPSolver {
                 double TrainingSetWeightedPrecision = eval.weightedPrecision();
                 double TrainingSetWeightedRecall = eval.weightedRecall();
                 double TrainingSetWeightedFMeasure = eval.weightedFMeasure();
+                double TrainingSetWeightedKappa = eval.kappa();
+                double TrainingSetWeightedPctCorrect = eval.pctCorrect();
 
 
                 if (bestPrecision < CrossValidationWeightedPrecision) {
@@ -127,6 +144,14 @@ public class TPSolver {
                 if (bestFMeasure < CrossValidationWeightedFMeasure) {
                     bestFMeasure = CrossValidationWeightedFMeasure;
                     bestFMeasureMethod = "Cross validation (10)";
+                }
+                if (bestKappa < CrossValidationWeightedKappa) {
+                    bestKappa = CrossValidationWeightedKappa;
+                    bestKappaMethod = "Cross validation (10)";
+                }
+                if (bestPctCorrect < CrossValidationWeightedPctCorrect) {
+                    bestPctCorrect = CrossValidationWeightedPctCorrect;
+                    bestPctCorrectMethod = "Cross validation (10)";
                 }
 
 
@@ -142,6 +167,14 @@ public class TPSolver {
                     bestFMeasure = CrossValidationAllWeightedFMeasure;
                     bestFMeasureMethod = "Leave one out (" + dataset.numInstances() + ")";
                 }
+                if (bestKappa < CrossValidationAllWeightedKappa) {
+                    bestKappa = CrossValidationAllWeightedKappa;
+                    bestKappaMethod = "Leave one out (" + dataset.numInstances() + ")";
+                }
+                if (bestPctCorrect < CrossValidationAllWeightedPctCorrect) {
+                    bestPctCorrect = CrossValidationAllWeightedPctCorrect;
+                    bestPctCorrectMethod = "Leave one out (" + dataset.numInstances() + ")";
+                }
 
                 if (bestPrecision < PercentageSplit66WeightedPrecision) {
                     bestPrecision = PercentageSplit66WeightedPrecision;
@@ -155,6 +188,14 @@ public class TPSolver {
                     bestFMeasure = PercentageSplit66WeightedFMeasure;
                     bestFMeasureMethod = "Hold out (" + percent + "%)";
                 }
+                if (bestKappa < PercentageSplit66WeightedKappa) {
+                    bestKappa = PercentageSplit66WeightedKappa;
+                    bestKappaMethod = "Hold out (" + percent + "%)";
+                }
+                if (bestPctCorrect < PercentageSplit66WeightedPctCorrect) {
+                    bestPctCorrect = PercentageSplit66WeightedPctCorrect;
+                    bestPctCorrectMethod = "Hold out (" + percent + "%)";
+                }
 
 
 
@@ -162,25 +203,33 @@ public class TPSolver {
 
                 fileWriter.write("\n\n");
 
-                fileWriter.write("|  | Precision | Recall | F-Measure |\n" +
-                        "| --- | --- | --- | --- |\n");
+                fileWriter.write("| | Kapp | PctCorrect | Precision | Recall | F-Measure |\n" +
+                        "| --- | --- | --- | --- | --- | --- |\n");
 
                 fileWriter.write("| Training set : | " +
+                        String.format("%.3f", TrainingSetWeightedKappa) + " | " +
+                        String.format("%.3f", TrainingSetWeightedPctCorrect) + " | " +
                         String.format("%.3f", TrainingSetWeightedPrecision) + " | " +
                         String.format("%.3f", TrainingSetWeightedRecall) + " | " +
                         String.format("%.3f", TrainingSetWeightedFMeasure) + " | \n");
 
                 fileWriter.write("| Cross-validation (10) : | " +
+                        String.format("%.3f", CrossValidationWeightedKappa) + " | " +
+                        String.format("%.3f", CrossValidationWeightedPctCorrect) + " | " +
                         String.format("%.3f", CrossValidationWeightedPrecision) + " | " +
                         String.format("%.3f", CrossValidationWeightedRecall) + " | " +
                         String.format("%.3f", CrossValidationWeightedFMeasure) + " | \n");
 
                 fileWriter.write("| Leave one out (" + dataset.numInstances() + ") : | " +
+                        String.format("%.3f", CrossValidationAllWeightedKappa) + " | " +
+                        String.format("%.3f", CrossValidationAllWeightedPctCorrect) + " | " +
                         String.format("%.3f", CrossValidationAllWeightedPrecision) + " | " +
                         String.format("%.3f", CrossValidationAllWeightedRecall) + " | " +
                         String.format("%.3f", CrossValidationAllWeightedFMeasure) + " | \n");
 
                 fileWriter.write("| Hold out (" + percent + "%) : | " +
+                        String.format("%.3f", PercentageSplit66WeightedKappa) + " | " +
+                        String.format("%.3f", PercentageSplit66WeightedPctCorrect) + " | " +
                         String.format("%.3f", PercentageSplit66WeightedPrecision) + " | " +
                         String.format("%.3f", PercentageSplit66WeightedRecall) + " | " +
                         String.format("%.3f", PercentageSplit66WeightedFMeasure) + " | \n");
@@ -189,6 +238,12 @@ public class TPSolver {
 
 
                 fileWriter.write("**Comparaison** :\n\n" +
+                        "comparaison à l'aide du **Kappa** :\n\n" +
+                        "le meilleur résultat est : " + bestKappaMethod + " \n" +
+                        "la valeur qu'il a donné : " + String.format("%.3f", bestKappa) + "\n\n" +
+                        "comparaison à l'aide du **pct Correct** :\n\n" +
+                        "le meilleur résultat est : " + bestPctCorrectMethod + " \n" +
+                        "la valeur qu'il a donné : " + String.format("%.3f", bestPctCorrect) + "\n\n" +
                         "comparaison à l'aide du **F-Measure** :\n\n" +
                         "le meilleur résultat est : " + bestFMeasureMethod + " \n" +
                         "la valeur qu'il a donné : " + String.format("%.3f", bestPrecision) + "\n\n" +
@@ -214,6 +269,16 @@ public class TPSolver {
                     bestFMeasureMethodForAll = bestFMeasureMethod;
                     bestFMeasureAlgorithmForAll = classifier.getClass().getSimpleName();
                 }
+                if (bestKappaForAll < bestKappa) {
+                    bestKappaForAll = bestKappa;
+                    bestKappaMethodForAll = bestKappaMethod;
+                    bestKappaAlgorithmForAll = classifier.getClass().getSimpleName();
+                }
+                if (bestPctCorrectForAll < bestPctCorrect) {
+                    bestPctCorrectForAll = bestPctCorrect;
+                    bestPctCorrectMethodForAll = bestPctCorrectMethod;
+                    bestPctCorrectAlgorithmForAll = classifier.getClass().getSimpleName();
+                }
 
             } catch (Exception e) {
                 fileWriter.write("Une **erreur** s'est produite lors de l'évaluation\n\n");
@@ -223,10 +288,18 @@ public class TPSolver {
         }
 
         fileWriter.write("\n\n#### Comparaison entre algorithmes :\n\n" +
+                "comparaison à l'aide du **Kappa** :\n\n" +
+                "le meilleur algorithme est : **" + bestKappaAlgorithmForAll + "** \n\n" +
+                "le meilleur résultat est : " + bestKappaMethodForAll + " \n" +
+                "la valeur qu'il a donné : " + String.format("%.3f", bestKappaForAll) + "\n\n\n" +
+                "comparaison à l'aide du **F-Measure** :\n\n" +
+                "le meilleur algorithme est : **" + bestPctCorrectAlgorithmForAll + "** \n\n" +
+                "le meilleur résultat est : " + bestPctCorrectMethodForAll + " \n" +
+                "la valeur qu'il a donné : " + String.format("%.3f", bestPctCorrectForAll) + "\n\n\n" +
                 "comparaison à l'aide du **F-Measure** :\n\n" +
                 "le meilleur algorithme est : **" + bestFMeasureAlgorithmForAll + "** \n\n" +
                 "le meilleur résultat est : " + bestFMeasureMethodForAll + " \n" +
-                "la valeur qu'il a donné : " + String.format("%.3f", bestPrecisionForAll) + "\n\n\n" +
+                "la valeur qu'il a donné : " + String.format("%.3f", bestFMeasureForAll) + "\n\n\n" +
                 "comparaison à l'aide du **Recall** :\n\n" +
                 "le meilleur algorithme est : **" + bestRecallAlgorithmForAll + "** \n\n" +
                 "le meilleur résultat est : " + bestRecallMethodForAll + " \n" +
@@ -234,17 +307,21 @@ public class TPSolver {
                 "comparaison à l'aide du **Precision** :\n\n" +
                 "le meilleur algorithme est : **" + bestPrecisionAlgorithmForAll + "** \n\n" +
                 "le meilleur résultat est " + bestPrecisionMethodForAll + " \n" +
-                "la valeur qu'il a donné : " + String.format("%.3f", bestFMeasureForAll) + "\n\n\n");
+                "la valeur qu'il a donné : " + String.format("%.3f", bestPrecisionForAll) + "\n\n\n");
     }
 
     public static void doTheTP(FileWriter fileWriter, Classifier classifier, Instances dataset) throws Exception {
         double bestPrecision = 0;
         double bestRecall = 0;
         double bestFMeasure = 0;
+        double bestKappa = 0;
+        double bestPctCorrect = 0;
 
         String bestPrecisionMethod = "";
         String bestRecallMethod = "";
         String bestFMeasureMethod = "";
+        String bestKappaMethod = "";
+        String bestPctCorrectMethod = "";
 
         Evaluation eval;
 
@@ -261,6 +338,8 @@ public class TPSolver {
         double CrossValidationWeightedPrecision = eval.weightedPrecision();
         double CrossValidationWeightedRecall = eval.weightedRecall();
         double CrossValidationWeightedFMeasure = eval.weightedFMeasure();
+        double CrossValidationWeightedKappa = eval.kappa();
+        double CrossValidationWeightedPctCorrect = eval.pctCorrect();
 
 
         // leave one out
@@ -270,10 +349,11 @@ public class TPSolver {
         double CrossValidationAllWeightedPrecision = eval.weightedPrecision();
         double CrossValidationAllWeightedRecall = eval.weightedRecall();
         double CrossValidationAllWeightedFMeasure = eval.weightedFMeasure();
-
+        double CrossValidationAllWeightedKappa = eval.kappa();
+        double CrossValidationAllWeightedPctCorrect = eval.pctCorrect();
 
         // hold out
-        int percent = 70;
+        int percent = 66;
 
         dataset.randomize(new Random(1));
 
@@ -295,6 +375,8 @@ public class TPSolver {
         double PercentageSplit66WeightedPrecision = eval.weightedPrecision();
         double PercentageSplit66WeightedRecall = eval.weightedRecall();
         double PercentageSplit66WeightedFMeasure = eval.weightedFMeasure();
+        double PercentageSplit66WeightedKappa = eval.kappa();
+        double PercentageSplit66WeightedPctCorrect = eval.pctCorrect();
 
         // base d'apprentissage
 
@@ -305,6 +387,8 @@ public class TPSolver {
         double TrainingSetWeightedPrecision = eval.weightedPrecision();
         double TrainingSetWeightedRecall = eval.weightedRecall();
         double TrainingSetWeightedFMeasure = eval.weightedFMeasure();
+        double TrainingSetWeightedKappa = eval.kappa();
+        double TrainingSetWeightedPctCorrect = eval.pctCorrect();
 
 
         if (bestPrecision < CrossValidationWeightedPrecision) {
@@ -318,6 +402,14 @@ public class TPSolver {
         if (bestFMeasure < CrossValidationWeightedFMeasure) {
             bestFMeasure = CrossValidationWeightedFMeasure;
             bestFMeasureMethod = "Cross validation (10)";
+        }
+        if (bestKappa < CrossValidationWeightedKappa) {
+            bestKappa = CrossValidationWeightedKappa;
+            bestKappaMethod = "Cross validation (10)";
+        }
+        if (bestPctCorrect < CrossValidationWeightedPctCorrect) {
+            bestPctCorrect = CrossValidationWeightedPctCorrect;
+            bestPctCorrectMethod = "Cross validation (10)";
         }
 
 
@@ -333,6 +425,14 @@ public class TPSolver {
             bestFMeasure = CrossValidationAllWeightedFMeasure;
             bestFMeasureMethod = "Leave one out (" + dataset.numInstances() + ")";
         }
+        if (bestKappa < CrossValidationAllWeightedKappa) {
+            bestKappa = CrossValidationAllWeightedKappa;
+            bestKappaMethod = "Leave one out (" + dataset.numInstances() + ")";
+        }
+        if (bestPctCorrect < CrossValidationAllWeightedPctCorrect) {
+            bestPctCorrect = CrossValidationAllWeightedPctCorrect;
+            bestPctCorrectMethod = "Leave one out (" + dataset.numInstances() + ")";
+        }
 
         if (bestPrecision < PercentageSplit66WeightedPrecision) {
             bestPrecision = PercentageSplit66WeightedPrecision;
@@ -346,6 +446,14 @@ public class TPSolver {
             bestFMeasure = PercentageSplit66WeightedFMeasure;
             bestFMeasureMethod = "Hold out (" + percent + "%)";
         }
+        if (bestKappa < PercentageSplit66WeightedKappa) {
+            bestKappa = PercentageSplit66WeightedKappa;
+            bestKappaMethod = "Hold out (" + percent + "%)";
+        }
+        if (bestPctCorrect < PercentageSplit66WeightedPctCorrect) {
+            bestPctCorrect = PercentageSplit66WeightedPctCorrect;
+            bestPctCorrectMethod = "Hold out (" + percent + "%)";
+        }
 
 
 
@@ -353,25 +461,33 @@ public class TPSolver {
 
         fileWriter.write("\n\n");
 
-        fileWriter.write("|  | Precision | Recall | F-Measure |\n" +
-                "| --- | --- | --- | --- |\n");
+        fileWriter.write("| | Kapp | PctCorrect | Precision | Recall | F-Measure |\n" +
+                "| --- | --- | --- | --- | --- | --- |\n");
 
         fileWriter.write("| Training set : | " +
+                String.format("%.3f", TrainingSetWeightedKappa) + " | " +
+                String.format("%.3f", TrainingSetWeightedPctCorrect) + " | " +
                 String.format("%.3f", TrainingSetWeightedPrecision) + " | " +
                 String.format("%.3f", TrainingSetWeightedRecall) + " | " +
                 String.format("%.3f", TrainingSetWeightedFMeasure) + " | \n");
 
         fileWriter.write("| Cross-validation (10) : | " +
+                String.format("%.3f", CrossValidationWeightedKappa) + " | " +
+                String.format("%.3f", CrossValidationWeightedPctCorrect) + " | " +
                 String.format("%.3f", CrossValidationWeightedPrecision) + " | " +
                 String.format("%.3f", CrossValidationWeightedRecall) + " | " +
                 String.format("%.3f", CrossValidationWeightedFMeasure) + " | \n");
 
         fileWriter.write("| Leave one out (" + dataset.numInstances() + ") : | " +
+                String.format("%.3f", CrossValidationAllWeightedKappa) + " | " +
+                String.format("%.3f", CrossValidationAllWeightedPctCorrect) + " | " +
                 String.format("%.3f", CrossValidationAllWeightedPrecision) + " | " +
                 String.format("%.3f", CrossValidationAllWeightedRecall) + " | " +
                 String.format("%.3f", CrossValidationAllWeightedFMeasure) + " | \n");
 
         fileWriter.write("| Hold out (" + percent + "%) : | " +
+                String.format("%.3f", PercentageSplit66WeightedKappa) + " | " +
+                String.format("%.3f", PercentageSplit66WeightedPctCorrect) + " | " +
                 String.format("%.3f", PercentageSplit66WeightedPrecision) + " | " +
                 String.format("%.3f", PercentageSplit66WeightedRecall) + " | " +
                 String.format("%.3f", PercentageSplit66WeightedFMeasure) + " | \n");
@@ -380,6 +496,12 @@ public class TPSolver {
 
 
         fileWriter.write("**Comparaison** :\n\n" +
+                "comparaison à l'aide du **Kappa** :\n\n" +
+                "le meilleur résultat est : " + bestKappaMethod + " \n" +
+                "la valeur qu'il a donné : " + String.format("%.3f", bestKappa) + "\n\n" +
+                "comparaison à l'aide du **pct Correct** :\n\n" +
+                "le meilleur résultat est : " + bestPctCorrectMethod + " \n" +
+                "la valeur qu'il a donné : " + String.format("%.3f", bestPctCorrect) + "\n\n" +
                 "comparaison à l'aide du **F-Measure** :\n\n" +
                 "le meilleur résultat est : " + bestFMeasureMethod + " \n" +
                 "la valeur qu'il a donné : " + String.format("%.3f", bestPrecision) + "\n\n" +
